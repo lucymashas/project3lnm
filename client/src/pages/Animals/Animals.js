@@ -1,8 +1,9 @@
-
 import React, { Component } from "react";
 import { Col, Row, Container } from "react-materialize";
 import API from "../../utils/API";
-import "./Animal.css";
+import { List } from "../../components/List";
+import searchResult from "../../components/SearchResults";
+
 
 class Animals extends Component {
   constructor (props){
@@ -15,8 +16,8 @@ class Animals extends Component {
  };
 
   componentDidMount() {
-    this.loadAnimals();
-  }
+    this.loadAnimals()
+  };
 
   loadAnimals = () => {
     API.getAnimals()
@@ -25,7 +26,7 @@ class Animals extends Component {
   };
 
   handleDonate = id => {
-    console.log("Hello Lucy: ",id)
+       console.log("Hello Lucy: ",id);
        const animal = this.state.animalsArr.find(animal => animal._id === id);
        console.log(animal);
       //  API.getCharity().then(res => this.setState({
@@ -42,26 +43,29 @@ class Animals extends Component {
           <Col size="md-6 sm-12">
               <h2>Animals In the List</h2>
             {this.state.animalsArr.length ? (
-
-                this.state.animalsArr.map(animal => (
-                  <ul>
-                     <li key={animal._id} _id={animal._id}>
-                     <button className="btn btnsm" onClick={this.handleDonate}>Donate</button>
-                     <a href={animal.link}>{animal.scientificName}</a></li>
-                      <li>{animal.commonName}</li>
-                      <li>{animal.status}</li>
-                  </ul>
-                ))
-
+              <List>
+                {this.state.animalsArr.slice(0, 5).map(animal => (
+                  <searchResult
+                         key={animal._id} 
+                         _id={animal._id}
+                         link={animal.link}
+                         scientificName={animal.scientificName}
+                         commonName={animal.commonName}
+                         status={animal.status}
+                         handleClick = {this.Donate}
+                         buttonText = "Donate" 
+                      />
+                  ))}
+              </List>
             ) : (
               <h3>No Results to Display</h3>
-            )}
+            )};
+
           </Col>
         </Row>
       </Container>
     );
   }
-
 };
 
 export default Animals;

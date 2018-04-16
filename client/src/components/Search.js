@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "./Form";
 import API from "../utils/API";
-import SearchResults from "./SearchResults";
+// import SearchResults from "./SearchResults";
 
 class Search extends Component{
    constructor (props){
@@ -35,7 +35,6 @@ class Search extends Component{
       <div>
         <Form handleFormSubmit={this.handleFormSubmit}
               handleInputChange={this.handleInputChange}/>
-        <SearchResults results={this.state.results}/>
       </div>
     );
   };
